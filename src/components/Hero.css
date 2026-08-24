@@ -1,0 +1,160 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 70vh;
+  min-height: 560px;
+}
+
+.hero-slides {
+  position: relative;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Placeholder de imagen de fondo: gradiente + patrón diagonal, listo para
+   reemplazar por background-image con la foto real del proyecto. */
+.hero-slide-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(rgba(20, 18, 12, 0.55), rgba(20, 18, 12, 0.55)),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 18px),
+    linear-gradient(135deg, #3b3b3b 0%, #262626 60%, #1c1a17 100%);
+  animation: kenburns 8s ease-in-out infinite alternate;
+}
+
+.hero-slide-tag {
+  position: absolute;
+  bottom: 16px;
+  right: 20px;
+  z-index: 1;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+
+.hero-slide-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  padding-left: 28px;
+  border-left: 4px solid var(--accent);
+}
+
+.hero .eyebrow {
+  color: var(--accent-2);
+}
+
+.hero-title {
+  font-size: 46px;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 28px;
+}
+
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.hero-arrow:hover {
+  color: var(--accent);
+  transform: translateY(-50%) scale(1.15);
+}
+
+.hero-arrow-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.hero-arrow-icon-prev {
+  transform: rotate(180deg);
+}
+
+.hero-arrow-prev {
+  left: 24px;
+}
+
+.hero-arrow-next {
+  right: 24px;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 108px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hero-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  opacity: 0.3;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.hero-dot.is-active {
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    height: 560px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+
+  /* Las flechas compiten con el texto en pantallas angostas; los puntos ya permiten navegar */
+  .hero-arrow {
+    display: none;
+  }
+}
