@@ -10,12 +10,16 @@
   align-items: stretch;
 }
 
-/* Panel de video/imagen placeholder — a propósito "full bleed" hacia la izquierda */
+/* Panel de video/imagen — a propósito "full bleed" hacia la izquierda.
+   La foto real (--about-image) va encima; si el archivo no existe todavía,
+   esa capa no pinta nada y se ve el patrón placeholder de abajo. */
 .about-media {
   position: relative;
   min-height: 480px;
   overflow: hidden;
   background:
+    linear-gradient(rgba(20, 18, 12, 0.35), rgba(20, 18, 12, 0.35)),
+    var(--about-image, none) center/cover no-repeat,
     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 18px),
     linear-gradient(135deg, #3b3b3b 0%, #262626 60%, #1c1a17 100%);
 }

@@ -18,24 +18,30 @@ export const nav = {
   cta: { label: 'Cotiza tu proyecto', href: '#contacto' },
 }
 
+// "image" es opcional: si el archivo no existe todavía, el fondo cae al
+// patrón placeholder (no rompe nada). Coloca el archivo en public/images/hero/
+// con ese mismo nombre para que aparezca.
 export const heroSlides = [
   {
     eyebrow: 'Estudio de arquitectura e ingeniería',
     title: 'DISEÑAMOS ESPACIOS QUE TRANSFORMAN',
     subtitle: 'Más de 000 proyectos entregados respaldan nuestro trabajo',
     cta: { label: '¡Empecemos hoy!', href: '#contacto' },
+    image: '/images/hero/slide-1.jpg',
   },
   {
     eyebrow: 'Diseño + construcción, de la mano',
     title: 'CONSTRUYAMOS JUNTOS TU PRÓXIMO PROYECTO',
     subtitle: 'Del anteproyecto a la entrega de llaves, un solo equipo',
     cta: { label: '¡Solicita una propuesta!', href: '#contacto' },
+    image: '/images/hero/slide-2.jpg',
   },
   {
     eyebrow: 'Alianzas estratégicas',
     title: 'TRABAJAMOS CON LOS MEJORES ESPECIALISTAS',
     subtitle: 'Convenios con colegios e institutos profesionales del sector',
     cta: { label: 'Conoce al equipo', href: '#nosotros' },
+    image: '/images/hero/slide-3.jpg',
   },
 ]
 
@@ -75,6 +81,8 @@ export const catalogCategories = [
 
 // "format" es la modalidad de entrega del servicio — se muestra como
 // insignia destacada en la tarjeta (equivalente al "EN VIVO" de inrepi).
+// "image" es opcional, mismo criterio que en heroSlides: coloca el archivo
+// en public/images/catalog/ con ese nombre para reemplazar el placeholder.
 export const catalogItems = [
   {
     category: 'Diseño',
@@ -84,6 +92,7 @@ export const catalogItems = [
     author: 'Nombre del responsable',
     price: 'S/ 0,000',
     priceOld: 'S/ 0,000',
+    image: '/images/catalog/diseno-vivienda.jpg',
   },
   {
     category: 'Construcción',
@@ -93,6 +102,7 @@ export const catalogItems = [
     author: 'Nombre del responsable',
     price: 'S/ 0,000',
     priceOld: null,
+    image: '/images/catalog/construccion-edificio.jpg',
   },
   {
     category: 'Consultoría',
@@ -102,6 +112,7 @@ export const catalogItems = [
     author: 'Nombre del responsable',
     price: 'S/ 0,000',
     priceOld: 'S/ 0,000',
+    image: '/images/catalog/consultoria-estructural.jpg',
   },
   {
     category: 'Remodelación',
@@ -111,6 +122,7 @@ export const catalogItems = [
     author: 'Nombre del responsable',
     price: 'S/ 0,000',
     priceOld: null,
+    image: '/images/catalog/remodelacion-local.jpg',
   },
   {
     category: 'Diseño',
@@ -120,6 +132,7 @@ export const catalogItems = [
     author: 'Nombre del responsable',
     price: 'S/ 0,000',
     priceOld: 'S/ 0,000',
+    image: '/images/catalog/renders-3d.jpg',
   },
   {
     category: 'Otros',
@@ -129,11 +142,14 @@ export const catalogItems = [
     author: 'Nombre del responsable',
     price: 'S/ 0,000',
     priceOld: null,
+    image: '/images/catalog/licencias.jpg',
   },
 ]
 
 export const about = {
   tagline: '¡Comprometidos con tu próximo proyecto!',
+  // Opcional: foto/poster del estudio o equipo. Colócala en public/images/about/.
+  image: '/images/about/estudio.jpg',
   tabs: [
     {
       label: '¿Quiénes somos?',

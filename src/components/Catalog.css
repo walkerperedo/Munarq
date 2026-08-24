@@ -71,7 +71,10 @@
   height: 170px;
   position: relative;
   overflow: hidden;
+  /* La foto real (--thumb-image) va encima; si el archivo no existe todavía,
+     esa capa no pinta nada y el patrón placeholder de abajo se ve normal. */
   background:
+    var(--thumb-image, none) center/cover no-repeat,
     repeating-linear-gradient(135deg, var(--border) 0 2px, transparent 2px 14px),
     linear-gradient(135deg, #f2f0e8, #e7e4da);
   transition: transform 0.3s ease;

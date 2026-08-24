@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { brand } from '../content'
 import { findCertificate, displaySignature, type Certificate } from '../certificates'
 import { ShieldIcon, SealIcon, CalendarIcon, XCircleIcon, SearchIcon } from '../components/icons'
@@ -12,7 +12,12 @@ function formatDate(iso: string) {
   })
 }
 
-type Result = { status: 'idle' } | { status: 'valid'; cert: Certificate } | { status: 'invalid' }
+type Result =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'valid'; cert: Certificate }
+  | { status: 'invalid' }
+  | { status: 'error'; message: string }
 
 function getInitialCode() {
   return new URLSearchParams(window.location.search).get('code') ?? ''
@@ -20,22 +25,33 @@ function getInitialCode() {
 
 export function Verify() {
   const [code, setCode] = useState(getInitialCode)
-  const [result, setResult] = useState<Result>(() => {
-    const initial = getInitialCode()
-    if (!initial) return { status: 'idle' }
-    const cert = findCertificate(initial)
-    return cert ? { status: 'valid', cert } : { status: 'invalid' }
-  })
+  const [result, setResult] = useState<Result>({ status: 'idle' })
 
-  const runVerification = (value: string) => {
-    const cert = findCertificate(value)
-    setResult(cert ? { status: 'valid', cert } : value ? { status: 'invalid' } : { status: 'idle' })
-
+  const runVerification = async (value: string) => {
     const url = new URL(window.location.href)
     if (value) url.searchParams.set('code', value)
     else url.searchParams.delete('code')
     window.history.replaceState({}, '', url)
+
+    if (!value) {
+      setResult({ status: 'idle' })
+      return
+    }
+
+    setResult({ status: 'loading' })
+    try {
+      const cert = await findCertificate(value)
+      setResult(cert ? { status: 'valid', cert } : { status: 'invalid' })
+    } catch {
+      setResult({ status: 'error', message: 'No pudimos consultar el certificado. Intenta de nuevo.' })
+    }
   }
+
+  useEffect(() => {
+    const initial = getInitialCode()
+    if (initial) runVerification(initial)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -69,9 +85,9 @@ export function Verify() {
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                 />
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" disabled={result.status === 'loading'}>
                   <SearchIcon />
-                  Verificar
+                  {result.status === 'loading' ? 'Verificando…' : 'Verificar'}
                 </button>
               </div>
             </form>
@@ -131,6 +147,17 @@ export function Verify() {
                   <p className="verify-detail-value">{formatDate(result.cert.issueDate)}</p>
                 </div>
               </div>
+
+              {result.cert.pdfUrl && (
+                <a
+                  href={result.cert.pdfUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-outline verify-pdf-link"
+                >
+                  Ver certificado en PDF
+                </a>
+              )}
             </div>
           )}
 
@@ -141,6 +168,16 @@ export function Verify() {
                 No encontramos ese código
               </div>
               <p>Revisa que esté escrito tal cual aparece en el certificado e inténtalo de nuevo.</p>
+            </div>
+          )}
+
+          {result.status === 'error' && (
+            <div className="verify-result-card is-invalid">
+              <div className="verify-result-badge">
+                <XCircleIcon />
+                Algo salió mal
+              </div>
+              <p>{result.message}</p>
             </div>
           )}
         </div>

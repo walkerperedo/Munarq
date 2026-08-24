@@ -332,6 +332,11 @@
   flex-shrink: 0;
 }
 
+.verify-pdf-link {
+  position: relative;
+  width: 100%;
+}
+
 @media (max-width: 560px) {
   .verify-detail-grid {
     grid-template-columns: 1fr;
