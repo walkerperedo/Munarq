@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { catalogCategories, catalogItems } from '../content'
 import { useReveal } from '../hooks/useReveal'
 import { EyeIcon } from './icons'
@@ -19,8 +19,11 @@ function CatalogCard({ item, delay }: { item: (typeof catalogItems)[number]; del
       className={`catalog-card reveal ${visible ? 'is-visible' : ''}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="catalog-thumb">
-        {/* Placeholder: reemplaza por la foto real del proyecto/servicio */}
+      <div
+        className="catalog-thumb"
+        style={item.image ? ({ '--thumb-image': `url(${item.image})` } as CSSProperties) : undefined}
+      >
+        {/* Placeholder visible solo mientras no exista el archivo en public/images/catalog/ */}
         <span className="catalog-thumb-tag">Imagen de proyecto</span>
         {/* <span className={`catalog-badge ${item.status === 'Disponible' ? 'is-available' : 'is-progress'}`}>
           {item.status}

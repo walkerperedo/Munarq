@@ -25,17 +25,36 @@
   pointer-events: auto;
 }
 
-/* Placeholder de imagen de fondo: gradiente + patrón diagonal, listo para
-   reemplazar por background-image con la foto real del proyecto. */
+/* Placeholder de imagen de fondo: gradiente + patrón diagonal. Se ve solo
+   mientras no exista el archivo en public/images/hero/ (queda detrás de
+   .hero-slide-photo y no se nota una vez que la foto real carga). */
 .hero-slide-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   background:
-    linear-gradient(rgba(20, 18, 12, 0.55), rgba(20, 18, 12, 0.55)),
     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 18px),
     linear-gradient(135deg, #3b3b3b 0%, #262626 60%, #1c1a17 100%);
   animation: kenburns 8s ease-in-out infinite alternate;
+}
+
+/* Foto real del slide. Si el archivo aún no existe, el navegador simplemente
+   no pinta esta capa y se ve el placeholder de abajo — sin JS ni onError. */
+.hero-slide-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--slide-image);
+  background-size: cover;
+  background-position: center;
+  animation: kenburns 8s ease-in-out infinite alternate;
+}
+
+.hero-slide-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(20, 18, 12, 0.55);
 }
 
 .hero-slide-tag {

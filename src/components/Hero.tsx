@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { heroSlides } from '../content'
 import { ChevronIcon } from './icons'
 import './Hero.css'
@@ -20,8 +20,15 @@ export function Hero() {
       <div className="hero-slides">
         {heroSlides.map((slide, i) => (
           <div key={slide.title} className={`hero-slide ${i === index ? 'is-active' : ''}`} aria-hidden={i !== index}>
-            {/* Fondo placeholder: reemplaza por la foto real del proyecto/slide */}
+            {/* Placeholder de fondo; queda debajo de la foto real una vez que exista el archivo */}
             <div className="hero-slide-bg" />
+            {slide.image && (
+              <div
+                className="hero-slide-photo"
+                style={{ '--slide-image': `url(${slide.image})` } as CSSProperties}
+              />
+            )}
+            <div className="hero-slide-overlay" />
             <span className="hero-slide-tag">Imagen de fondo (placeholder)</span>
             <div className="container hero-slide-inner">
               <p className="eyebrow">{slide.eyebrow}</p>

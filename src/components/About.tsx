@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { about, brand } from '../content'
 import { useReveal } from '../hooks/useReveal'
 import { CheckIcon, ChevronDownIcon, PlayIcon } from './icons'
@@ -11,8 +11,11 @@ export function About() {
   return (
     <section id="nosotros" className="about">
       <div ref={ref} className={`about-inner reveal ${visible ? 'is-visible' : ''}`}>
-        <div className="about-media">
-          {/* Placeholder: reemplaza por un video o foto real del estudio/equipo */}
+        <div
+          className="about-media"
+          style={about.image ? ({ '--about-image': `url(${about.image})` } as CSSProperties) : undefined}
+        >
+          {/* Placeholder visible solo mientras no exista el archivo en public/images/about/ */}
           <span className="about-media-tag">Video institucional (placeholder)</span>
           <button type="button" className="about-play" aria-label="Reproducir video">
             <PlayIcon />

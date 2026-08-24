@@ -9,6 +9,14 @@ const base = {
   viewBox: '0 0 24 24',
 }
 
+export function TrashIcon({ className }: IconProps) {
+  return (
+    <svg className={className} {...base} aria-hidden="true">
+      <path d="M4 7h16M9 7V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V7m2 0-.7 12.4a1.8 1.8 0 0 1-1.8 1.6H9.5a1.8 1.8 0 0 1-1.8-1.6L7 7" />
+    </svg>
+  )
+}
+
 export function CalendarIcon({ className }: IconProps) {
   return (
     <svg className={className} {...base} aria-hidden="true">
